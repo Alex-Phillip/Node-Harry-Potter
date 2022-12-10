@@ -17,12 +17,14 @@ const port = 3000;
 
 const data = require("./data/data.json");
 
+const characters = data.map((character) => character.name);
+
 app.listen(port, () => {
     console.log("API initialised!");
 });
 
 app.get("/characters", (req, res) => {
-
-})
+    res.send(characters);
+    });
 
 console.log(data);
