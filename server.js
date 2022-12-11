@@ -19,12 +19,17 @@ app.get("/characters", (req, res) => {
     let name = req.query.name;
     let house = req.query.house;
     if (name) {
-        characters = characters.filter(char => char.name.toLowerCase() === name.toLowerCase())
+        characters = characters.filter(char => char.name === name)
     }
     if (house) {
-      characters = characters.filter(char => char.house.toLowerCase() === house.toLowerCase())
+      characters = characters.filter(char => char.house === house)
     }
     res.send(characters);
+    });
+
+    app.get("/characters/:id", (req, res) => {
+      const characterId = parseInt(req.params.id);
+      res.send(data.find((c) => c.id === characterId));
     });
     
     app.listen(port, () => {
