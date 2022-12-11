@@ -10,21 +10,23 @@ This API should include:
 - an endpoint that returns the details of a single character */
 
 const express = require("express");
-
 const app = express();
-
 const port = 3000;
-
 const data = require("./data/data.json");
 
-const characters = data.map((character) => character.name);
-
-app.listen(port, () => {
-    console.log("API initialised!");
-});
-
 app.get("/characters", (req, res) => {
+    let characters = data;
+    let name = req.query.name;
+    let house = req.query.house;
+    if (name) {
+        characters = characters.filter(char => char.name.toLowerCase() === name.toLowerCase())
+    }
+    if (house) {
+      characters = characters.filter(char => char.house.toLowerCase() === house.toLowerCase())
+    }
     res.send(characters);
     });
-
-console.log(data);
+    
+    app.listen(port, () => {
+      console.log(`Listening on port ${port}`);
+    });
